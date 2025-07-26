@@ -385,24 +385,25 @@ benchmarks/
 
 ### Judge Algorithms
 
-| Status | Algorithm      | Source                                                                      |
-|:------:|----------------|-----------------------------------------------------------------------------|
-|   ✅    | RuleBasedJudge | "Universal and Transferable Adversarial Attacks on Aligned Language Models" |
-|   ✅    | [PairLLMJudge](https://arxiv.org/abs/2310.08419)   | "Jailbreaking Black Box Large Language Models in Twenty Queries"            |
-|   ✅    | [TAPLLMJudge](https://arxiv.org/abs/2312.02119)    | "Tree of Attacks: Jailbreaking Black-Box LLMs Automatically"                |
+| Status | Algorithm                                                     | Source                                                                                                             |
+|:------:|---------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+|   ✅    | RuleBasedJudge                                                | "Universal and Transferable Adversarial Attacks on Aligned Language Models"                                        |
+|   ✅    | [PairLLMJudge](https://arxiv.org/abs/2310.08419)              | "Jailbreaking Black Box Large Language Models in Twenty Queries"                                                   |
+|   ✅    | [TAPLLMJudge](https://arxiv.org/abs/2312.02119)               | "Tree of Attacks: Jailbreaking Black-Box LLMs Automatically"                                                       |
+|   ✅    | [JAILJUDGEMultiAgent](https://arxiv.org/abs/2410.12855)       | "JAILJUDGE: A Comprehensive Jailbreak Judge Benchmark with Multi-Agent Enhanced Explanation Evaluation Framework"  |
 
 
 ### LLM Interfaces
 
-| Status | Interface   | Description                                                                          |
-|:------:|-------------|--------------------------------------------------------------------------------------|
-|   ✅    | OpenAI API  | Interface for OpenAI models (GPT-4o, GPT-4o-mini, etc.)                              |
-|   ✅    | Claude API  | Interface for Anthropic's Claude models (Claude-3.7-sonnet, Claude-3.5-sonnet, etc.) |
-|   ✅    | Gemini API  | Interface for Google's Gemini models (Gemini-2.0-pro, Gemini-2.0-flash, etc.)        |
-|   ✅    | HuggingFace | Interface for models through HuggingFace Transformers library                        |
-|   ✅    | [vLLM](https://github.com/vllm-project/vllm)        | High-performance inference engine for LLM deployment                                 |
-|   ✅    | [SGLang](https://github.com/sgl-project/sglang)      | Framework for efficient LLM program execution                                        |
-|   ✅    | [Ollama](https://ollama.com/)      | Local deployment for various open-source models                                      |
+| Status | Interface                                       | Description                                                                          |
+|:------:|-------------------------------------------------|--------------------------------------------------------------------------------------|
+|   ✅    | OpenAI API                                      | Interface for OpenAI models (GPT-4o, GPT-4o-mini, etc.)                              |
+|   ✅    | Claude API                                      | Interface for Anthropic's Claude models (Claude-3.7-sonnet, Claude-3.5-sonnet, etc.) |
+|   ✅    | Gemini API                                      | Interface for Google's Gemini models (Gemini-2.0-pro, Gemini-2.0-flash, etc.)        |
+|   ✅    | HuggingFace                                     | Interface for models through HuggingFace Transformers library                        |
+|   ✅    | [vLLM](https://github.com/vllm-project/vllm)    | High-performance inference engine for LLM deployment                                 |
+|   ✅    | [SGLang](https://github.com/sgl-project/sglang) | Framework for efficient LLM program execution                                        |
+|   ✅    | [Ollama](https://ollama.com/)                   | Local deployment for various open-source models                                      |
 
 
 ## Contribution Guide
@@ -435,6 +436,7 @@ We would like to express our gratitude to the following projects and their contr
 - [GoalPriority](https://github.com/thu-coai/JailbreakDefense_GoalPriority)
 - [GradSafe](https://github.com/xyq7/GradSafe)
 - [DeepInception](https://github.com/tmlr-group/DeepInception)
+- [JAILJUDGE](https://arxiv.org/abs/2410.12855)
 - [vLLM](https://github.com/vllm-project/vllm)
 - [SGLang](https://github.com/sgl-project/sglang)
 - [Ollama](https://ollama.com/)
