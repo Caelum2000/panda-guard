@@ -2,6 +2,8 @@
 
 English | [简体中文](./README_zh_CN.md)
 
+🏆 **PandaGuard Leaderboard**: Explore our comprehensive LLM safety evaluation results at [PandaGuard Leaderboard](https://huggingface.co/spaces/Beijing-AISI/PandaGuard-leaderboard) 📊
+
 This repository contains the source code for `Panda Guard`, designed for researching jailbreak attacks, defenses, and evaluation algorithms for large language models (LLMs). It is built on the following core principles:
 
 ![PandaGuard Framework Architecture](figures/img-white.png)
