@@ -2,6 +2,8 @@
 
 [English](./README.md) | 简体中文
 
+🏆 **PandaGuard排行榜**: 在 [PandaGuard 排行榜](https://huggingface.co/spaces/Beijing-AISI/PandaGuard-leaderboard) 探索我们全面的大语言模型安全评估结果 📊
+
 本仓库包含了 `Panda Guard` 的源代码，该项目旨在研究大型语言模型（LLMs）的越狱攻击、防御和评估算法。它建立在以下核心原则上：
 
 ![PandaGuard 框架架构](figures/img-white.png)
