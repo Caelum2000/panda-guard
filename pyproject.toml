@@ -107,7 +107,7 @@ filterwarnings = [
 ]
 
 [tool.setuptools.package-data]
-"panda_guard" = ["config/*.yaml"]
+"panda_guard" = ["config/**/*.yaml"]
 
 [project.entry-points."panda_guard.attackers"]
 TransferAttacker = "panda_guard.role.attacks.transfer:TransferAttacker"
