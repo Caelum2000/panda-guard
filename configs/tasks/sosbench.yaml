@@ -19,4 +19,4 @@ judges: null
 misc:
   output_file: null
   threads: 1
-  input_file: "../../data/jbb_expanded.csv"
+  input_file: "../../data/sos_expanded.csv"

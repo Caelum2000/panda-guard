@@ -20,6 +20,7 @@ from tqdm import tqdm
 
 from panda_guard.pipelines.inference import InferPipeline, InferPipelineConfig
 from panda_guard.utils import parse_configs_from_dict
+from transformers import AutoTokenizer
 
 
 # Load the YAML configuration file

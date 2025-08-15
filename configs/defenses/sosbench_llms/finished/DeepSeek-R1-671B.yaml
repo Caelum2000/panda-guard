@@ -1,0 +1,4 @@
+llm_type: "OpenAiChatLLM"
+base_url: "https://aihubmix.com/v1"
+api_key: "sk-MI1czDjVIUVxVtzx519803081a574eB1BbE193196cF175D9"
+model_name: "DeepSeek-R1"

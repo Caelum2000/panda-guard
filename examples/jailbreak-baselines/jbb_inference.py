@@ -159,13 +159,19 @@ def run_inference(args):
     results = []
     for _, row in iterator:
         messages = [{"role": "user", "content": row["Goal"]}]
-        result = [
-            pipe(
-                messages,
-                request_reformulated=row.get(attacker_config.attacker_name, None),
-            )
-            for _ in range(args.repeats)
-        ]
+        if attacker_config.attacker_name in ["Actor", "Crescendo", "Sequential"]:
+            result = [
+                pipe.multi_turn(messages)
+                for _ in range(args.repeats)
+            ]
+        else:
+            result = [
+                pipe(
+                    messages,
+                    request_reformulated=row.get(attacker_config.attacker_name, None),
+                )
+                for _ in range(args.repeats)
+            ]
         results.append({"goal": row["Goal"], "data": result})
         pipe.reset()
 
