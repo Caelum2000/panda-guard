@@ -1,0 +1,8 @@
+attacker_cls: "SequentialAttacker"
+attacker_name: "Sequential"
+dataset: "safe_dial_bench"
+use_cache_response: True
+
+# hm_behaviors
+# cosafe
+# safe_dial_bench

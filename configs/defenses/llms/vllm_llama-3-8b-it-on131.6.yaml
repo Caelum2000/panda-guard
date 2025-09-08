@@ -1,0 +1,4 @@
+llm_type: "OpenAiChatLLM"
+base_url: "http://localhost:8848/v1"
+api_key: "thb"
+model_name: "meta-llama/Meta-Llama-3-8B-Instruct"

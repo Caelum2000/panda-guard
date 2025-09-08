@@ -1,0 +1,16 @@
+attacker_cls: "CrescendoAttacker"
+attacker_name: "Crescendo"
+
+attack_llm_config:
+  llm_type: "OpenAiChatLLM"
+  base_url: "https://aihubmix.com/v1"
+  api_key: "sk-U4fpYuYaX04onOk5707a0a6d0c22423fBcFb21AdA309B9E8"
+  model_name: "DeepSeek-V3"
+attack_llm_gen_config:
+  max_n_tokens: 2048
+  temperature: 0.0
+  logprobs: False
+  seed: 42
+
+cache_dir: "../../data/harmbench_crescendo_cache_gpt-4o-2024-11-20.json"
+max_turn: 10

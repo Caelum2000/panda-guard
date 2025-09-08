@@ -1,0 +1,4 @@
+llm_type: "OpenAiChatLLM"
+base_url: "https://uni-api.cstcloud.cn/v1"
+api_key: "6a200628c6e259988181e0506bbe5f8c66ef75c9dd2423584ceb6c270f38b636"
+model_name: "S1-Base-Lite"

@@ -1,0 +1,4 @@
+attacker_cls: "SequentialAttacker"
+attacker_name: "Sequential"
+dataset: "hm_behaviors-DERTA"
+use_cache_response: False

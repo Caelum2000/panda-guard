@@ -1,0 +1,24 @@
+defender_cls: TomDefender
+defender_name: TomDefence
+
+target_llm_config:
+  llm_type: "OpenAiLLM"
+  base_url: "http://210.75.240.144:3006/v1"
+  api_key: "token-casia-braincog-233"
+  model_name: "Qwen/Qwen2.5-72B-Instruct"
+target_llm_gen_config:
+  max_n_tokens: 1000
+  temperature: 1.0
+  logprobs: False
+  seed: 42
+
+infer_llm_config:
+  model_name: "meta-llama/Llama-3.1-8B-Instruct"
+  llm_type: "OpenAiChatLLM"
+  base_url: "http://210.75.240.12:8848/v1"
+  api_key: "thb"
+infer_llm_gen_config:
+  max_n_tokens: 1000
+  temperature: 0.0
+  logprobs: False
+  seed: 42

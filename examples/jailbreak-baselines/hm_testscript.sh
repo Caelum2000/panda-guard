@@ -1,0 +1,1 @@
+python run_all_inference.py --output-dir ../../benchmarks/hm --config ../../configs/tasks/harmbench.yaml --attack ../../configs/attacks/test_hm/ica.yaml --defense ../../configs/defenses/test --llm ../../configs/defenses/llms/test --max-parallel 16 --log-level INFO

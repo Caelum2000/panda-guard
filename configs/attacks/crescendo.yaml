@@ -1,0 +1,13 @@
+attacker_cls: "CrescendoAttacker"
+attacker_name: "Crescendo"
+
+attacker_llm_config:
+  llm_type: "OpenAiChatLLM"
+  base_url: "https://aihubmix.com/v1"
+  api_key: "sk-MI1czDjVIUVxVtzx519803081a574eB1BbE193196cF175D9"
+  model_name: "gpt-4o-2024-11-20"
+attacker_llm_gen_config:
+  max_n_tokens: 4096
+  temperature: 0.0
+  seed: 42
+

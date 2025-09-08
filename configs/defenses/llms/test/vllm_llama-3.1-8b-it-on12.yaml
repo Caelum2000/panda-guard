@@ -1,0 +1,5 @@
+llm_type: "OpenAiChatLLM"
+base_url: "http://210.75.240.12:8848/v1"
+api_key: "thb"
+model_name: "meta-llama/Llama-3.1-8B-Instruct"
+

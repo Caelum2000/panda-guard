@@ -1,0 +1,1 @@
+python run_all_inference.py --output-dir ../../hm_transfer --config ../../configs/tasks/harmbench.yaml --attack ../../configs/attacks/hm_transfer --defense ../../configs/defenses/none.yaml --llm ../../configs/defenses/llms/vllm_llama-3.1-8b-it-on12.yaml
