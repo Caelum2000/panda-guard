@@ -1,0 +1,4 @@
+llm_type: "OpenAiChatLLM"
+base_url: "https://chat.intern-ai.org.cn/api/v1"
+api_key: "sk-XtVkVlKf3X2mzPFo732kC28VK6CXCKPGcRqXKjRwQgoXqp9I"
+model_name: "intern-s1"

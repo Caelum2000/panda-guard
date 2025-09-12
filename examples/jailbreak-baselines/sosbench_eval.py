@@ -32,7 +32,7 @@ def load_config(yaml_file):
 def parse_args():
     parser = argparse.ArgumentParser(description="Run evaluation pipeline")
     parser.add_argument('--config', type=str, default="../../configs/judges/judge.yaml", help='Path to YAML configuration file')
-    parser.add_argument('--input-dir', type=str, default="../../benchmarks/sosbench/", help='Input directory containing JSON files or YAML file containing list of files')
+    parser.add_argument('--input-dir', type=str, default="../../benchmarks/sosbench/to_test", help='Input directory containing JSON files or YAML file containing list of files')
     parser.add_argument('--output-dir', type=str, default="../../benchmarks/sosbench_judged/", help='Output directory')
     parser.add_argument('--num-workers', type=int, default=12, help='Number of workers for parallel processing')
     parser.add_argument('--log-level', type=str, default="WARNING", help='Logging level')

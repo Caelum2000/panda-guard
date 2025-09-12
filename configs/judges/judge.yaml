@@ -60,7 +60,7 @@ judges:
       temperature: 0.0
       logprobs: False
       seed: 42
-  - judge_cls: "RuleBasedJudge"
+# - judge_cls: "RuleBasedJudge"
 
 misc:
   output_file: null
