@@ -1,4 +1,0 @@
-llm_type: "OpenAiChatLLM"
-base_url: "http://222.134.30.181:55340/v1"
-api_key: "xxxx"
-model_name: "deepseek_r1_0528_s1"

@@ -1,0 +1,3 @@
+llm_type: "HuggingFaceLLM"
+model_name: "../../../pretrained/Intern-S1-mini"
+device_map: cuda:1

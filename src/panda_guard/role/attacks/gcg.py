@@ -30,7 +30,7 @@ class GCGAttackerConfig(BaseAttackerConfig):
     search_width: int = field(default=512)
     batch_size: int = field(default=None)
     topk: int = field(default=256)
-    adv_string_init: str = field(default="x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x")
+    adv_string_init: str = field(default="x x x x x x x x x x x x x x x x x x x x x x x x")
     num_steps: int = field(default=250)
     llm_config: BaseLLMConfig = field(default_factory=BaseLLMConfig)
     llm_gen_config: LLMGenerateConfig = field(default=None)
@@ -124,20 +124,34 @@ class GCGAttacker(BaseAttacker):
         """
         super().__init__(config)
 
-        for field in fields(config):
-            field_name = field.name
-            field_value = getattr(config, field_name)
-            if "llm_gen_config" in field_name:
-                self.llm_gen_config = config.llm_gen_config
-            elif "llm_config" in field_name:
-                self.llm = create_llm(config.llm_config)
-            else:
-                setattr(self, field_name, field_value)
+        self.attacker_cls = config.attacker_cls
+        self.attacker_name = config.attacker_name
+        self.search_width = config.search_width
+        self.batch_size = config.batch_size
+        self.topk = config.topk
+        self.adv_string_init = config.adv_string_init
+        self.num_steps = config.num_steps
+        self.n_replace = config.n_replace
+        self.buffer_size = config.buffer_size
+        self.use_mellowmax = config.use_mellowmax
+        self.mellowmax_alpha = config.mellowmax_alpha
+        self.early_stop = config.early_stop
+        self.use_prefix_cache = config.use_prefix_cache
+        self.allow_non_ascii = config.allow_non_ascii
+        self.filter_ids = config.filter_ids
+        self.add_space_before_target = config.add_space_before_target
+        self.seed = config.seed
 
-        self.embedding_layer = self.llm.model.get_input_embeddings()
+        llm = create_llm(config.llm_config)
+        self.llm = llm
+        self.model = llm.model
+        self.tokenizer = llm.tokenizer
+        self.embedding_layer = llm.model.get_input_embeddings()
+        self.device = llm.model.device
+        self.llm_gen_config = config.llm_gen_config
+
         self.not_allowed_ids = None if config.allow_non_ascii else self.get_nonascii_toks()
         self.prefix_cache = None
-        self.stop_flag = False
         self.INIT_CHARS = [
             ".", ",", "!", "?", ";", ":", "(", ")", "[", "]", "{", "}",
             "@", "#", "$", "%", "&", "*",
@@ -150,24 +164,24 @@ class GCGAttacker(BaseAttacker):
 
         :return: Tensor containing the IDs of non-ASCII tokens.
         """
-        device = self.llm.model.device
+        device = self.device
 
         def is_ascii(s):
             return s.isascii() and s.isprintable()
 
         nonascii_toks = []
-        for i in range(self.llm.tokenizer.vocab_size):
-            if not is_ascii(self.llm.tokenizer.decode([i])):
+        for i in range(self.tokenizer.vocab_size):
+            if not is_ascii(self.tokenizer.decode([i])):
                 nonascii_toks.append(i)
 
-        if self.llm.tokenizer.bos_token_id is not None:
-            nonascii_toks.append(self.llm.tokenizer.bos_token_id)
-        if self.llm.tokenizer.eos_token_id is not None:
-            nonascii_toks.append(self.llm.tokenizer.eos_token_id)
-        if self.llm.tokenizer.pad_token_id is not None:
-            nonascii_toks.append(self.llm.tokenizer.pad_token_id)
-        if self.llm.tokenizer.unk_token_id is not None:
-            nonascii_toks.append(self.llm.tokenizer.unk_token_id)
+        if self.tokenizer.bos_token_id is not None:
+            nonascii_toks.append(self.tokenizer.bos_token_id)
+        if self.tokenizer.eos_token_id is not None:
+            nonascii_toks.append(self.tokenizer.eos_token_id)
+        if self.tokenizer.pad_token_id is not None:
+            nonascii_toks.append(self.tokenizer.pad_token_id)
+        if self.tokenizer.unk_token_id is not None:
+            nonascii_toks.append(self.tokenizer.unk_token_id)
 
         return torch.tensor(nonascii_toks, device=device)
 
@@ -184,28 +198,31 @@ class GCGAttacker(BaseAttacker):
         :param kwargs: Additional parameters for the attack, must include "request_reformulated".
         :return: Modified list of messages with the reformulated request.
         """
-        instruction = [copy.deepcopy(messages[0])]
+        self.stop_flag = False
+        instruction = copy.deepcopy(messages)
         target = 'Sure, here is'
+        if not any(["{optim_str}" in d["content"] for d in instruction]):
+            instruction[-1]["content"] = instruction[-1]["content"] + "{optim_str}"
+        # instruction[-1]["content"] = instruction[-1]["content"] + " " + self.adv_string_init
 
-        instruction[-1]["content"] = instruction[-1]["content"] + " " + self.adv_string_init
-
-        prompt_formatted = self.llm.tokenizer.apply_chat_template(instruction, tokenize=False,
+        prompt_formatted = self.tokenizer.apply_chat_template(instruction, tokenize=False,
                                                                   add_generation_prompt=True)
-
-        before_str, after_str = prompt_formatted.split(f"{self.adv_string_init}")
+        if self.tokenizer.bos_token and prompt_formatted.startswith(self.tokenizer.bos_token):
+            prompt_formatted = prompt_formatted.replace(self.tokenizer.bos_token, "")
+        before_str, after_str = prompt_formatted.split("{optim_str}")
 
         target = " " + target if self.add_space_before_target else target
 
-        before_ids = self.llm.tokenizer([before_str], padding=False,
-                                        return_tensors="pt")["input_ids"].to(self.llm.model.device,
+        before_ids = self.tokenizer([before_str], padding=False,
+                                        return_tensors="pt")["input_ids"].to(self.device,
                                                                             torch.int64)
 
-        after_ids = self.llm.tokenizer([after_str], add_special_tokens=False, return_tensors="pt")["input_ids"].to(
-            self.llm.model.device,
+        after_ids = self.tokenizer([after_str], add_special_tokens=False, return_tensors="pt")["input_ids"].to(
+            self.device,
             torch.int64)
 
-        target_ids = self.llm.tokenizer([target], add_special_tokens=False, return_tensors="pt")["input_ids"].to(
-            self.llm.model.device,
+        target_ids = self.tokenizer([target], add_special_tokens=False, return_tensors="pt")["input_ids"].to(
+            self.device,
             torch.int64)
 
         before_embeds, after_embeds, target_embeds = [self.embedding_layer(ids) for ids in
@@ -213,7 +230,7 @@ class GCGAttacker(BaseAttacker):
 
         if self.use_prefix_cache:
             with torch.no_grad():
-                output = self.llm.model(inputs_embeds=before_embeds, use_cache=True)
+                output = self.model(inputs_embeds=before_embeds, use_cache=True)
                 self.prefix_cache = output.past_key_values
 
         self.target_ids = target_ids
@@ -221,6 +238,7 @@ class GCGAttacker(BaseAttacker):
         self.after_embeds = after_embeds
         self.target_embeds = target_embeds
 
+        # Initialize the attack buffer
         buffer = self.init_buffer()
         optim_ids = buffer.get_best_ids()
 
@@ -243,7 +261,7 @@ class GCGAttacker(BaseAttacker):
                 )
 
                 if self.filter_ids:
-                    sampled_ids = self.filter_ids_op(sampled_ids, self.llm.tokenizer)
+                    sampled_ids = self.filter_ids_op(sampled_ids, self.tokenizer)
 
                 new_search_width = sampled_ids.shape[0]
 
@@ -271,7 +289,7 @@ class GCGAttacker(BaseAttacker):
                     buffer.add(current_loss, optim_ids)
 
             optim_ids = buffer.get_best_ids()
-            optim_str = self.llm.tokenizer.batch_decode(optim_ids)[0]
+            optim_str = self.tokenizer.batch_decode(optim_ids)[0]
             optim_strings.append(optim_str)
 
             if self.stop_flag:
@@ -285,8 +303,8 @@ class GCGAttacker(BaseAttacker):
         return [messages[0]]
 
     def init_buffer(self) -> AttackBuffer:
-        model = self.llm.model
-        tokenizer = self.llm.tokenizer
+        model = self.model
+        tokenizer = self.tokenizer
 
         # Create the attack buffer and initialize the buffer ids
         buffer = AttackBuffer(self.buffer_size)
@@ -343,7 +361,7 @@ class GCGAttacker(BaseAttacker):
         
         :return: Tensor, shape = (1, n_optim_ids, vocab_size), gradient of the loss with respect to the one-hot token matrix.
         """
-        model = self.llm.model
+        model = self.model
         embedding_layer = self.embedding_layer
 
         # Create the one-hot encoding matrix of our optimized token ids
@@ -400,12 +418,13 @@ class GCGAttacker(BaseAttacker):
                 current_batch_size = input_embeds_batch.shape[0]
                 if self.prefix_cache:
                     if not prefix_cache_batch or current_batch_size != search_batch_size:
-                        prefix_cache_batch = [[x.expand(current_batch_size, -1, -1, -1) for x in self.prefix_cache[i]]
-                                              for i in range(len(self.prefix_cache))]
+                        with torch.no_grad():
+                            out = self.model(inputs_embeds=self.before_embeds.repeat(current_batch_size, 1, 1), use_cache=True)
+                            prefix_cache_batch = out.past_key_values
 
-                    outputs = self.llm.model(inputs_embeds=input_embeds_batch, past_key_values=prefix_cache_batch)
+                    outputs = self.model(inputs_embeds=input_embeds_batch, past_key_values=prefix_cache_batch)
                 else:
-                    outputs = self.llm.model(inputs_embeds=input_embeds_batch)
+                    outputs = self.model(inputs_embeds=input_embeds_batch)
 
                 logits = outputs.logits
 

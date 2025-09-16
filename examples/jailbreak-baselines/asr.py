@@ -3,8 +3,8 @@ import json
 
 
 # file and meta info
-name = "S1-Base-Pro"
-json_path = "benchmarks/sosbench_judged/S1-Base-Pro/TransferAttacker_Goal/NoneDefender/results.json"
+name = "S1-Ultra"
+json_path = "benchmarks/sosbench_judged/deepseek_r1_0528_s1/TransferAttacker_Goal/NoneDefender/results.json"
 
 cnt = 0
 success = 0

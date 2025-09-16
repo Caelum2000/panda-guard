@@ -47,7 +47,7 @@ class HuggingFaceLLM(BaseLLM):
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
         self.tokenizer = AutoTokenizer.from_pretrained(
-            self._NAME, token=os.getenv("HF_TOKEN")
+            self._NAME, token=os.getenv("HF_TOKEN"), trust_remote_code=True,
         )  # , local_files_only=True
         self.tokenizer.padding_side = "left"
 
