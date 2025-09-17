@@ -170,7 +170,7 @@ class ReNeLLMAttacker(BaseAttacker):
                     continue
                 else:
                     logging.info(
-                        f"\n******* Exceeded the maximum number of iterations {args.iter_max}, adopt the current round results and end the loop.*******\n")
+                        f"\n******* Exceeded the maximum number of iterations {self.args.iter_max}, adopt the current round results and end the loop.*******\n")
                     break
 
             if int(jailbreak_label[0]) == 1:
@@ -183,7 +183,7 @@ class ReNeLLMAttacker(BaseAttacker):
                     continue
                 else:
                     logging.info(
-                        f"\n******* Exceeded the maximum number of iterations {args.iter_max}, adopt the current round results and end the loop.*******\n")
+                        f"\n******* Exceeded the maximum number of iterations {self.args.iter_max}, adopt the current round results and end the loop.*******\n")
                     break
 
         messages = [{"role": "user", "content": nested_prompt}]

@@ -5,7 +5,7 @@ attacker_name: "ReNeLLM"
 rewrite_llm_config:
   llm_type: "HuggingFaceLLM"
   model_name: "meta-llama/Llama-3.1-8B-Instruct"
-  device_map: cuda:0
+  device_map: cuda:5
 
 rewrite_llm_gen_config:
   max_n_tokens: 1000
@@ -29,7 +29,7 @@ target_llm_gen_config:
 judge_llm_config:
   llm_type: "HuggingFaceLLM"
   model_name: "meta-llama/Llama-3.1-8B-Instruct"
-  device_map: "cuda:5"
+  device_map: "cuda:7"
 
 judge_llm_gen_config:
   max_n_tokens: 1000
