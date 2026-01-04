@@ -20,44 +20,8 @@ from tqdm import tqdm
 
 from panda_guard.pipelines.inference import InferPipeline, InferPipelineConfig
 from panda_guard.utils import parse_configs_from_dict
-
-
-# Load the YAML configuration file
-def load_config(yaml_file):
-    with open(yaml_file, "r") as file:
-        return yaml.safe_load(file)
-
-
-def parse_args():
-    parser = argparse.ArgumentParser(description="Run evaluation pipeline")
-    parser.add_argument(
-        "--config",
-        type=str,
-        default="../../configs/judges/judge.yaml",
-        help="Path to YAML configuration file",
-    )
-    parser.add_argument(
-        "--input-dir",
-        type=str,
-        default="../../benchmarks/jbb/",
-        help="Input directory containing JSON files or YAML file containing list of files",
-    )
-    parser.add_argument(
-        "--output-dir",
-        type=str,
-        default="../../benchmarks/jbb_judged/",
-        help="Output directory",
-    )
-    parser.add_argument(
-        "--num-workers",
-        type=int,
-        default=12,
-        help="Number of workers for parallel processing",
-    )
-    parser.add_argument(
-        "--log-level", type=str, default="WARNING", help="Logging level"
-    )
-    return parser.parse_args()
+import click
+from omegaconf import OmegaConf
 
 
 def fill_llms_configs(d, parent_key="", llm_configs=None):
@@ -94,8 +58,9 @@ def process_file(
     )
     config_to_save = generation_dict["judges"] = config_dict["judges"]
 
+    output_dir = os.path.join("./outputs", args["exp_prefix"])
     output_file = os.path.join(
-        args.output_dir, os.path.relpath(json_file, args.input_dir)
+        output_dir, os.path.relpath(json_file, args["input_dir"])
     )
 
     # Check if output file exists
@@ -165,41 +130,50 @@ def get_input_files(input_dir):
         return glob.glob(os.path.join(input_dir, "**", "*.json"), recursive=True)
 
 
-if __name__ == "__main__":
-    args = parse_args()
+@click.command()
+@click.option(
+    "--config",
+    type=click.Path(exists=True, dir_okay=False),
+    required=True,
+    help="Path to YAML config file",
+)
+def main(config):
+    # args = parse_args()
     # Setup logging
+
+    config = OmegaConf.load(config)
+    config = OmegaConf.to_container(config, resolve=True)
+
     logging.basicConfig(
-        level=eval(f"logging.{args.log_level}"),
+        level=eval(f"logging.{config['args']['log_level']}"),
         format="%(asctime)s - %(levelname)s - %(message)s",
     )
 
     # Load and possibly override the YAML configuration
-    config_dict = load_config(args.config)
-    config_dict = override_config(config_dict, args)
+    # config_dict = load_config(args.config)
+    config = override_config(config, config["args"])
 
     # Convert YAML dictionary into attacker, defender, and judge configurations
-    attacker_config, defender_config, judge_configs = parse_configs_from_dict(
-        config_dict
-    )
+    attacker_config, defender_config, judge_configs = parse_configs_from_dict(config)
 
     # Get input files (from a directory or a YAML file)
-    json_files = get_input_files(args.input_dir)
+    json_files = get_input_files(config["args"]["input_dir"])
 
     # json_files = [f for f in json_files if 'NoneDefender' in f]
     # print(json_files)
 
     # Use ThreadPoolExecutor to process files concurrently
-    with ThreadPoolExecutor(max_workers=args.num_workers) as executor:
+    with ThreadPoolExecutor(max_workers=config["args"]["num_workers"]) as executor:
         futures = []
         for json_file in json_files:
             future = executor.submit(
                 process_file,
                 json_file,
-                args,
+                config["args"],
                 attacker_config,
                 defender_config,
                 judge_configs,
-                config_dict,
+                config,
             )
             futures.append(future)
 
@@ -212,4 +186,8 @@ if __name__ == "__main__":
             except Exception as e:
                 logging.error(f"Error in processing: {e}")
 
-    logging.info(f"Results saved to {args.output_dir}")
+    logging.info("Done")
+
+
+if __name__ == "__main__":
+    main()

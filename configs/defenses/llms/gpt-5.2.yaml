@@ -1,0 +1,4 @@
+llm_type: "OpenAiChatLLM"
+base_url: "https://aihubmix.com/v1"
+api_key: "sk-2MW9jOjeoKGhlO78Bc8c1038B6924dB4B9A81881780048Aa"
+model_name: "gpt-5.2"
