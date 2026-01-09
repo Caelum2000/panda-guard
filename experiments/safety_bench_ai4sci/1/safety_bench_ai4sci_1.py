@@ -10,8 +10,7 @@ from concurrent.futures import ThreadPoolExecutor
 import copy
 from tqdm import tqdm
 from examples.exp_scripts.jbb_inference_exp import run_inference
-
-# TODO: device allocation
+import json
 
 
 def build_combined_configs(config):
@@ -61,6 +60,9 @@ def main(config):
         format="%(asctime)s - %(levelname)s - %(message)s",
     )
 
+    log_dir = os.path.join('logs',config['exp_prefix'])
+    os.makedirs(log_dir, exist_ok=True)
+
     attacker_list = build_combined_configs(config=config["attacker"])
     defender_list = build_combined_configs(config=config["defender"])
     llm_list = build_combined_configs(config=config["llm"])
@@ -102,7 +104,20 @@ def main(config):
     logging.info(
         f"All experiments completed. Successes: {len(successes)}, Failures: {len(failures)}."
     )
-    # logging.info("Failed experiments logged in fails.txt.")
+
+
+    # write failed
+    fail_log_path = os.path.join(log_dir, "fails.json")
+
+    failures_dict = {
+        f"failure #{i}": cfg
+        for i, cfg in enumerate(failures, start=1)
+    }
+
+    with open(fail_log_path, "w", encoding="utf-8") as f:
+        json.dump(failures_dict, f, indent=2, ensure_ascii=False)
+
+    logging.info(f"Failed experiments logged in {fail_log_path}.")
 
 
 if __name__ == "__main__":

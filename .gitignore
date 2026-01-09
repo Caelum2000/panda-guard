@@ -121,3 +121,6 @@ desktop.ini
 *.bak
 *.swp
 *.swo
+
+# for exp branch
+outputs/

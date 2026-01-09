@@ -3,7 +3,7 @@ args:
   max_parallel: 16
   repeats: 1
   visible: true
-  device: 0
+  device: null
   max_queries: null
 
 exp_prefix: "safety_bench_ai4sci/1"

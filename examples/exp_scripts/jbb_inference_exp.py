@@ -50,10 +50,11 @@ def run_inference(config_dict):
     else:
         llm_dict = config_dict["defender"]["target_llm_config"]
 
-    if config_dict["args"]["device"]:
+    if config_dict["args"]["device"] is not None:
         config_dict["defender"]["target_llm_config"]["device_map"] = config_dict[
             "args"
         ]["device"]
+        logging.WARNING("Override defender device mapping")
 
     if llm_gen_dict:
         config_dict["defender"]["target_llm_gen_config"].update(llm_gen_dict)
