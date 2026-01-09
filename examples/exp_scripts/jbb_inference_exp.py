@@ -21,6 +21,13 @@ from panda_guard.llms import create_llm, HuggingFaceLLMConfig
 from panda_guard.pipelines.inference import InferPipeline, InferPipelineConfig
 from panda_guard.utils import parse_configs_from_dict
 
+def normalize_cell(x):
+    if pd.isna(x):
+        return None
+    if isinstance(x, str) and x.strip() == "":
+        return None
+    return x
+
 
 def run_inference(config_dict):
     """Run inference using the provided configurations."""
@@ -76,7 +83,7 @@ def run_inference(config_dict):
     attacker_config, defender_config, _ = parse_configs_from_dict(config_dict)
 
     # Load CSV input file.
-    df = pd.read_csv(config_dict["misc"]["input_file"])
+    df = pd.read_csv(config_dict["misc"]["input_file"], encoding="latin1")
 
     yaml.dump(
         config_dict, open(output_file.replace("results.json", "config.yaml"), "w")
@@ -103,7 +110,12 @@ def run_inference(config_dict):
     )
     results = []
     for _, row in iterator:
-        messages = [{"role": "user", "content": row["Goal"]}]
+        goal = normalize_cell(row.get("Goal"))
+
+        # Skip rows with empty Goal
+        if goal is None:
+            continue
+        messages = [{"role": "user", "content": goal}]
         result = [
             pipe(
                 messages,
