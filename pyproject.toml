@@ -184,11 +184,13 @@ RuleBasedJudge = "panda_guard.role.judges.rule_based:RuleBasedJudge"
 PairLLMJudge = "panda_guard.role.judges.llm_based:PairLLMJudge"
 TAPLLMJudge = "panda_guard.role.judges.llm_based:TAPLLMJudge"
 JAILJUDGEMultiAgent = "panda_guard.role.judges.jbjudge:JAILJUDGEMultiAgent"
+SOSLLMJudge = "panda_guard.role.judges.llm_based:SOSLLMJudge"
 
 [project.entry-points."panda_guard.judge_configs"]
 RuleBasedJudgeConfig = "panda_guard.role.judges.rule_based:RuleBasedJudgeConfig"
 PairLLMJudgeConfig = "panda_guard.role.judges.llm_based:PairLLMJudgeConfig"
 TAPLLMJudgeConfig = "panda_guard.role.judges.llm_based:TAPLLMJudgeConfig"
+SOSLLMJudgeConfig = "panda_guard.role.judges.llm_based:SOSLLMJudgeConfig"
 
 
 
