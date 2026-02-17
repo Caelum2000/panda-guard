@@ -1,9 +1,13 @@
 attacker_cls: "RewriteAttacker"
 attacker_name: "past_tense"
 llm_config:
-  llm_type: "OpenAiLLM"
-  model_name: "meta-llama/Meta-Llama-3.1-70B-Instruct"
-  base_url: "http://172.18.129.80:8000/v1"
+#  llm_type: "OpenAiChatLLM"
+#  model_name: "meta-llama/Meta-Llama-3.1-70B-Instruct"
+#  base_url: "http://172.18.129.80:8000/v1"
+  llm_type: "OpenAiChatLLM"
+  base_url: "https://aihubmix.com/v1"
+  api_key: "sk-2MW9jOjeoKGhlO78Bc8c1038B6924dB4B9A81881780048Aa"
+  model_name: "llama-3.3-70b"
 llm_gen_config:
   max_n_tokens: 150
   temperature: 1.0

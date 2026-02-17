@@ -3,9 +3,13 @@ attacker_name: "ReNeLLM"
 
 # rewrite llm configs
 rewrite_llm_config:
-  llm_type: "HuggingFaceLLM"
-  model_name: "meta-llama/Llama-3.1-8B-Instruct"
-  device_map: cuda:1
+  llm_type: "OpenAiChatLLM"
+  base_url: "https://aihubmix.com/v1"
+  api_key: "sk-2MW9jOjeoKGhlO78Bc8c1038B6924dB4B9A81881780048Aa"
+  model_name: "llama3.1-8b"
+#  llm_type: "HuggingFaceLLM"
+#  model_name: "meta-llama/Llama-3.1-8B-Instruct"
+#  device_map: cuda:1
 
 rewrite_llm_gen_config:
   max_n_tokens: 1000
@@ -15,9 +19,13 @@ rewrite_llm_gen_config:
 
 # target llm configs
 target_llm_config:
-  llm_type: "HuggingFaceLLM"
-  model_name: "meta-llama/Llama-3.1-8B-Instruct"
-  device_map: cuda:2
+  llm_type: "OpenAiChatLLM"
+  base_url: "https://aihubmix.com/v1"
+  api_key: "sk-2MW9jOjeoKGhlO78Bc8c1038B6924dB4B9A81881780048Aa"
+  model_name: "llama3.1-8b"
+#  llm_type: "HuggingFaceLLM"
+#  model_name: "meta-llama/Llama-3.1-8B-Instruct"
+#  device_map: cuda:2
 
 target_llm_gen_config:
   max_n_tokens: 1000
@@ -27,9 +35,13 @@ target_llm_gen_config:
 
 # judge llm configs
 judge_llm_config:
-  llm_type: "HuggingFaceLLM"
-  model_name: "meta-llama/Llama-3.1-8B-Instruct"
-  device_map: cuda:3
+  llm_type: "OpenAiChatLLM"
+  base_url: "https://aihubmix.com/v1"
+  api_key: "sk-2MW9jOjeoKGhlO78Bc8c1038B6924dB4B9A81881780048Aa"
+  model_name: "llama3.1-8b"
+#  llm_type: "HuggingFaceLLM"
+#  model_name: "meta-llama/Llama-3.1-8B-Instruct"
+#  device_map: cuda:3
 
 judge_llm_gen_config:
   max_n_tokens: 1000

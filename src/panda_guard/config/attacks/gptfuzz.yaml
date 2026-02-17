@@ -3,9 +3,13 @@ attacker_name: "GPTFuzz"
 
 # attacker llm configs
 attacker_llm_config:
-  llm_type: "HuggingFaceLLM"
-  model_name: "meta-llama/Llama-3.1-8B-Instruct"
-  device_map: cuda:0
+  llm_type: "OpenAiChatLLM"
+  base_url: "https://aihubmix.com/v1"
+  api_key: "sk-2MW9jOjeoKGhlO78Bc8c1038B6924dB4B9A81881780048Aa"
+  model_name: "llama3.1-8b"
+#  llm_type: "HuggingFaceLLM"
+#  model_name: "meta-llama/Llama-3.1-8B-Instruct"
+#  device_map: cuda:0
 
 # The original paper's configuration:
 # llm_type: "OpenAiChatLLM"
@@ -19,8 +23,12 @@ attacker_llm_gen_config:
 
 # target llm configs
 target_llm_config:
-  llm_type: "HuggingFaceLLM"
-  model_name: "meta-llama/Llama-3.2-8B-Instruct"
+  llm_type: "OpenAiChatLLM"
+  base_url: "https://aihubmix.com/v1"
+  api_key: "sk-2MW9jOjeoKGhlO78Bc8c1038B6924dB4B9A81881780048Aa"
+  model_name: "llama3.1-8b"
+#  llm_type: "HuggingFaceLLM"
+#  model_name: "meta-llama/Llama-3.2-8B-Instruct"
 target_llm_gen_config:
   max_n_tokens: 4096
   temperature: 1.0
@@ -28,7 +36,7 @@ target_llm_gen_config:
   seed: null
 
 # 77 jailbreak templates as initial seed
-initial_seed: "../../data/GPTFuzz/GPTFuzzer.csv"
+initial_seed: "data/GPTFuzz/GPTFuzzer.csv"
 
 # Pre-trained model for determining whether a jailbreak was successful or not
 predict_model: 'hubert233/GPTFuzz'

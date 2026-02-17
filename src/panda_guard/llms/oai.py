@@ -53,7 +53,6 @@ class OpenAiChatLLMConfig(BaseLLMConfig):
     api_key: str = field(default="KEY HERE")
 
 
-
 class OpenAiChatLLM(BaseLLM):
     """
     OpenAI Chat LLM Implementation.
@@ -143,7 +142,7 @@ class OpenAiChatLLM(BaseLLM):
 
                 # Non-streaming mode (original code)
                 else:
-                    if 'o1' not in self._NAME and 'o3' not in self._NAME:
+                    if 'o1' not in self._NAME and 'o3' not in self._NAME and 'gpt-5' not in self._NAME:
                         response = self.client.chat.completions.create(
                             model=model_name,
                             messages=messages,
@@ -151,6 +150,16 @@ class OpenAiChatLLM(BaseLLM):
                             temperature=config.temperature,
                             logprobs=config.logprobs,
                             seed=config.seed,
+                        )
+                    elif self._NAME == "qwen3-max-2026-01-23":
+                        response = self.client.chat.completions.create(
+                            model=model_name,
+                            messages=messages,
+                            max_tokens=config.max_n_tokens,
+                            temperature=config.temperature,
+                            logprobs=config.logprobs,
+                            seed=config.seed,
+                            extra_body={"enable_thinking": True},
                         )
                     else:
                         response = self.client.chat.completions.create(
@@ -163,7 +172,8 @@ class OpenAiChatLLM(BaseLLM):
 
                     if response.choices is None:
                         print("Cannot find choices in Response:", response)
-                        messages.append({"role": "assistant", "content": "I'm sorry, but I can't fulfill this request."})
+                        messages.append(
+                            {"role": "assistant", "content": "I'm sorry, but I can't fulfill this request."})
 
                     else:
                         content = response.choices[0].message.content
@@ -222,7 +232,6 @@ class OpenAiChatLLM(BaseLLM):
         raise NotImplementedError(
             "OpenAI Chat does not support log likelihood evaluation."
         )
-
 
 
 class OpenAiLLM(BaseLLM):
@@ -370,7 +379,7 @@ class OpenAiLLM(BaseLLM):
         return None
 
     def continual_generate(
-        self, messages: List[Dict[str, str]], config: LLMGenerateConfig
+            self, messages: List[Dict[str, str]], config: LLMGenerateConfig
     ):
         """
         Remove EOS token in formatted prompt. Manually add generation prompt.

@@ -67,6 +67,7 @@ def run_inference(config_dict):
         config_dict["defender"]["target_llm_gen_config"].update(llm_gen_dict)
 
     # Update output file path.
+    # print(config_dict)
     output_file = os.path.join(
         config_dict["output_dir"],
         llm_dict["model_name"].replace("/", "_"),
@@ -83,7 +84,7 @@ def run_inference(config_dict):
     attacker_config, defender_config, _ = parse_configs_from_dict(config_dict)
 
     # Load CSV input file.
-    df = pd.read_csv(config_dict["misc"]["input_file"], encoding="latin1")
+    df = pd.read_csv(config_dict["misc"]["input_file"], encoding="utf-8")
 
     yaml.dump(
         config_dict, open(output_file.replace("results.json", "config.yaml"), "w")
@@ -103,6 +104,7 @@ def run_inference(config_dict):
         if config_dict["args"]["max_queries"]
         else df
     )
+    # print(df)
     iterator = (
         tqdm(df.iterrows(), total=len(df), desc=config_dict["llm"]["model_name"])
         if config_dict["args"]["visible"]
