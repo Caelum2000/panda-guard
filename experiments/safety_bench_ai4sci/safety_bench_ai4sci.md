@@ -24,8 +24,26 @@
 ### exp 4_1
 1. 在exp 4的基础上，测试grok+gpt
 
+### exp 4_2 
+1. 在exp4的基础上增加了2026.2新出的几个模型：
+   1. qwen3.5-plus 
+   2. claude-sonnet-4-6 
+   3. doubao-seed-2-0-pro 
+   4. gemini-3.1-pro-preview 
+   5. glm-5 
+   6. minimax-m2.5
+
 ### exp 5
 1. 2026.1.23
 2. 使用自己构建的初版ai4sci_safebench进行测评，加了模板攻击，文件为data/safetybench_ai4sci/ai4sci_safebench_20260123_expanded.csv
 3. 增加了模型数量 (先不测gpt+grok)，在exp 5_1测试
 4. 为了与sos_lite进行合并
+
+### exp 5_2 
+1. 在exp 5_2的基础上增加了2026.2新出的几个模型：
+    1. qwen3.5-plus
+    2. claude-sonnet-4-6
+    3. doubao-seed-2-0-pro
+    4. gemini-3.1-pro-preview
+    5. glm-5
+    6. minimax-m2.5

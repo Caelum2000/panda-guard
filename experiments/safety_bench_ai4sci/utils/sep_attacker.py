@@ -1,7 +1,7 @@
 import pandas as pd
 
 # load csv
-df = pd.read_csv("outputs/safety_bench_ai4sci/4_eval/SOS_gpt-4o-2024-11-20.csv")
+df = pd.read_csv("outputs/safety_bench_ai4sci/4_2_eval/SOS_gpt-4o-2024-11-20.csv")
 
 # no-attacker ASR (NoneAttacker_Goal)
 no_attacker = (
@@ -27,4 +27,4 @@ result = (
 )
 
 # save to csv
-result.to_csv("model_subject_asr_summary_4.csv", index=False)
+result.to_csv("model_subject_asr_summary_4_2.csv", index=False)

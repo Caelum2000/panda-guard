@@ -2,9 +2,9 @@ import pandas as pd
 import numpy as np
 
 # ---------- inputs ----------
-csv4_path = "model_subject_asr_summary_4.csv"
-csv5_path = "model_subject_asr_summary_5.csv"
-out_path = "model_subject_asr_subjectlist_avg.csv"
+csv4_path = "model_subject_asr_summary_4_2.csv"
+csv5_path = "model_subject_asr_summary_5_2.csv"
+out_path = "model_subject_asr_4-2_5-2_avg.csv"
 
 # You provide this list (case-insensitive match)
 subject_list = [

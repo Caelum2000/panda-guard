@@ -34,6 +34,14 @@ def plot_settings():
         'ytick.minor.width': 0.5
     })
 
+    plt.rcParams['font.family'] = 'serif'
+    plt.rcParams['font.serif'] = ['Times New Roman'] + plt.rcParams['font.serif']
+    plt.rcParams['axes.linewidth'] = 0.8
+    plt.rcParams['xtick.major.width'] = 0.8
+    plt.rcParams['ytick.major.width'] = 0.8
+    plt.rcParams['font.size'] = 16
+    plt.rcParams['axes.titlesize'] = 20
+    plt.rcParams['axes.titleweight'] = 'bold'
 
 def create_radar_chart(df, savepath):
     subject = df["subject"].unique().tolist()
@@ -85,11 +93,12 @@ def create_radar_chart(df, savepath):
 
     ylabels = [f"{int(y)}%" for y in yticks]
 
-    plt.yticks(yticks, ylabels, color="grey", size=10)
+    plt.yticks(yticks, ylabels, color="grey")
     plt.ylim(0, max_value)
 
     ax.set_xticks(angles[:-1])
-    ax.set_xticklabels(subject, fontsize=12, ha='center', fontweight='bold')
+    # ax.set_xticklabels(subject, fontsize=12, ha='center', fontweight='bold')
+    ax.set_xticklabels(subject, ha='center')
     for label in ax.get_xticklabels():
         label.set_horizontalalignment('center')
         label.set_verticalalignment('center')
@@ -103,7 +112,8 @@ def create_radar_chart(df, savepath):
         ax.plot(angles, values, 'o-', linewidth=2, color=palette[i], label=model_name, alpha=0.6)
 
     # 添加图例和标题
-    plt.legend(loc='upper left', bbox_to_anchor=(1.2, 1), prop={'weight': 'bold', 'size': 12})
+    # plt.legend(loc='upper left', bbox_to_anchor=(1.2, 1), prop={'weight': 'bold', 'size': 12})
+    plt.legend(loc='upper left', bbox_to_anchor=(1.2, 1))
 
     # 美化网格
     ax.grid(True, linestyle='--', alpha=0.7)
@@ -701,9 +711,18 @@ def create_radar_chart_attack_model(df, savepath):
 
 if __name__ == "__main__":
     plot_settings()
-    
-    df_attacker = pd.read_csv("asr_attacker_table.csv")
-    df_no_attacker = pd.read_csv("asr_no_attacker_table.csv")
+    # plt.rcParams['font.family'] = 'serif'
+    # plt.rcParams['font.serif'] = ['Times New Roman'] + plt.rcParams['font.serif']
+    # plt.rcParams['axes.linewidth'] = 0.8
+    # plt.rcParams['xtick.major.width'] = 0.8
+    # plt.rcParams['ytick.major.width'] = 0.8
+    # plt.rcParams['font.size'] = 16
+    # plt.rcParams['axes.titlesize'] = 20
+    # plt.rcParams['axes.titleweight'] = 'bold'
+    # plt.rcParams['legend.frameon'] = False
+
+    df_attacker = pd.read_csv("temp/asr_attacker_table.csv")
+    df_no_attacker = pd.read_csv("temp/asr_no_attacker_table.csv")
     
     subjects = df_attacker.columns[1:].tolist()
     

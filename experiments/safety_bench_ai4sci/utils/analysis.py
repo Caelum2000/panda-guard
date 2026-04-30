@@ -246,7 +246,7 @@ def plot_asr_data(csv_file, title_prefix, output_prefix):
     plt.rcParams['axes.linewidth'] = 0.8
     plt.rcParams['xtick.major.width'] = 0.8
     plt.rcParams['ytick.major.width'] = 0.8
-    plt.rcParams['font.size'] = 16
+    plt.rcParams['font.size'] = 20
     plt.rcParams['axes.titlesize'] = 20
     plt.rcParams['axes.titleweight'] = 'bold'
     

@@ -1,7 +1,7 @@
 import pandas as pd
 
 # ---------- paths ----------
-in_path = "model_subject_asr_subjectlist_avg.csv"
+in_path = "temp/model_subject_asr_20260310_avg.csv"
 out_no_attacker = "asr_no_attacker_table.csv"
 out_attacker = "asr_attacker_table.csv"
 
