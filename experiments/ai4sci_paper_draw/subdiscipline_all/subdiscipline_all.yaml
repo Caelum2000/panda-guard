@@ -1,0 +1,62 @@
+output_dir: outputs/ai4sci_paper_draw/subdiscipline_all
+
+inputs:
+  eval_dirs:
+    base:
+      subject_subdiscipline: others/1_base_eval/subject_subdiscipline.csv
+    sci:
+      subject_subdiscipline: others/1_sci_eval/subject_subdiscipline.csv
+
+plot:
+  dpi: 300
+  formats: ["svg"]
+  figure_width: 18.5
+  figure_height: 6.8
+  legend_figure_width: 18.5
+  legend_figure_height: 6.4
+  max_asr: 100
+  x_tick_step: 20
+  font_scale: 1.35
+  title_font_size: 16
+  subject_font_size: 15
+  code_font_size: 12
+  legend_font_size: 9
+  legend_wrap_width: 25
+  tick_font_size: 11
+  value_font_size: 9
+  bar_width: 0.72
+  value_padding: 1.4
+  subject_gap: 0.9
+  subject_order:
+    - Astronomy
+    - Biology
+    - Chemistry
+    - Geography
+    - engineering
+    - math
+    - physics
+  subject_labels:
+    Astronomy: "Astronomy"
+    Biology: "Biology"
+    Chemistry: "Chemistry"
+    Geography: "Geography"
+    engineering: "Engineering"
+    math: "Mathematics"
+    physics: "Physics"
+  subject_prefixes:
+    Astronomy: "A"
+    Biology: "B"
+    Chemistry: "C"
+    Geography: "G"
+    engineering: "E"
+    math: "M"
+    physics: "P"
+  sort_subdisciplines: "mean_asr_desc"
+  palette:
+    Astronomy: "#4E79A7"
+    Biology: "#59A14F"
+    Chemistry: "#B07AA1"
+    Geography: "#9C755F"
+    engineering: "#F28E2B"
+    math: "#76B7B2"
+    physics: "#E15759"

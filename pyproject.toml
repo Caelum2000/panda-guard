@@ -185,12 +185,14 @@ PairLLMJudge = "panda_guard.role.judges.llm_based:PairLLMJudge"
 TAPLLMJudge = "panda_guard.role.judges.llm_based:TAPLLMJudge"
 JAILJUDGEMultiAgent = "panda_guard.role.judges.jbjudge:JAILJUDGEMultiAgent"
 SOSLLMJudge = "panda_guard.role.judges.llm_based:SOSLLMJudge"
+RiskJudge = "panda_guard.role.judges.llm_based:RiskJudge"
 
 [project.entry-points."panda_guard.judge_configs"]
 RuleBasedJudgeConfig = "panda_guard.role.judges.rule_based:RuleBasedJudgeConfig"
 PairLLMJudgeConfig = "panda_guard.role.judges.llm_based:PairLLMJudgeConfig"
 TAPLLMJudgeConfig = "panda_guard.role.judges.llm_based:TAPLLMJudgeConfig"
 SOSLLMJudgeConfig = "panda_guard.role.judges.llm_based:SOSLLMJudgeConfig"
+RiskJudgeConfig = "panda_guard.role.judges.llm_based:RiskJudgeConfig"
 
 
 
@@ -203,7 +205,7 @@ GeminiLLM = "panda_guard.llms.gemini:GeminiLLM"
 ClaudeLLM = "panda_guard.llms.claude:ClaudeLLM"
 
 [project.entry-points."panda_guard.llm_configs"]
-OpenAiLLMConfig = "panda_guard.llms.oai:OpenAiLLMConfig"
+OpenAiLLMConfig = "panda_guard.llms.onstai:OpenAiLLMConfig"
 OpenAiChatLLMConfig = "panda_guard.llms.oai:OpenAiChatLLMConfig"
 HuggingFaceLLMConfig = "panda_guard.llms.hf:HuggingFaceLLMConfig"
 VLLMLLMConfig = "panda_guard.llms.vllm:VLLMLLMConfig"

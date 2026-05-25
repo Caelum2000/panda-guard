@@ -1,0 +1,77 @@
+args:
+  log_level: "INFO"
+  max_parallel: 16
+  repeats: 1
+  visible: true
+  device: null
+  max_queries: null
+
+exp_prefix: "ai4sci_paper/2_base"
+
+attacker:
+  external:
+    - configs/attacks/none.yaml
+    - configs/attacks/transfer/anti_gpt_v2.yaml
+    - configs/attacks/transfer/better_dan.yaml
+    - configs/attacks/transfer/dev_mode_ranti.yaml
+    - configs/attacks/transfer/dev_mode_v2.yaml
+  manual:
+    null
+    # - params:
+    #     attacker_cls: "TransferAttacker"
+    #     attacker_name: null
+
+defender:
+  external:
+    - configs/defenses/none.yaml
+  manual:
+    null
+    # - params:
+    #     defender_cls: "NoneDefender"
+    #     target_llm_config:
+    #       llm_type: "OpenAiLLM"
+    #       model_name: "meta-llama/Meta-Llama-3-70B-Instruct"
+    #       base_url: "http://172.18.129.80:8000/v1"
+    #     target_llm_gen_config:
+    #       max_n_tokens: 150
+    #       temperature: 1.0
+    #       logprobs: False
+    #       seed: null
+
+llm:
+  external:
+    - configs/defenses/ai4sci_llm/base_models/claude-haiku-4-5.yaml
+    - configs/defenses/ai4sci_llm/base_models/claude-opus-4-7.yaml
+    - configs/defenses/ai4sci_llm/base_models/claude-sonnet-4-6.yaml
+    - configs/defenses/ai4sci_llm/base_models/deepseek-v3.2-speciale.yaml
+    - configs/defenses/ai4sci_llm/base_models/deepseek-v4-flash.yaml
+    - configs/defenses/ai4sci_llm/base_models/deepseek-v4-pro.yaml
+    - configs/defenses/ai4sci_llm/base_models/doubao-seed-1-8.yaml
+    - configs/defenses/ai4sci_llm/base_models/gemini-2.5-flash.yaml
+    - configs/defenses/ai4sci_llm/base_models/gemini-3-flash-preview.yaml
+    - configs/defenses/ai4sci_llm/base_models/gemma-4-31b-it.yaml
+    - configs/defenses/ai4sci_llm/base_models/glm-4.7.yaml
+    - configs/defenses/ai4sci_llm/base_models/glm-5.1.yaml
+    - configs/defenses/ai4sci_llm/base_models/kimi-k2.6.yaml
+    - configs/defenses/ai4sci_llm/base_models/Kimi-K2-0905.yaml
+    - configs/defenses/ai4sci_llm/base_models/minimax-m2.7.yaml
+    - configs/defenses/ai4sci_llm/base_models/nvidia-nemotron-3-super-120b-a12b.yaml
+    - configs/defenses/ai4sci_llm/base_models/qwen3.5-27b.yaml
+    - configs/defenses/ai4sci_llm/base_models/qwen3.5-35b-a3b.yaml
+    - configs/defenses/ai4sci_llm/base_models/qwen3.5-122b-a10b.yaml
+    - configs/defenses/ai4sci_llm/base_models/qwen3.5-397b-a17b.yaml
+    - configs/defenses/ai4sci_llm/base_models/qwen3.6-max-preview.yaml
+    - configs/defenses/ai4sci_llm/base_models/qwen3-max.yaml
+    - configs/defenses/ai4sci_llm/base_models/xiaomi-mimo-v2.5-pro.yaml
+  manual: null
+
+llm_gen:
+  max_n_tokens: 4096
+  temperature: 1.0
+  logprobs: False
+  seed: null
+
+judges: null
+
+input_file:
+  - "data/ai4sci_paper/20260423_expanded.csv"

@@ -1,0 +1,17 @@
+Risk Dimension,Subject
+ Privacy leaks,Biology
+Authority inflation,"Astronomy, Geography, math, physics"
+Dual-use,"Chemistry, engineering"
+"Dual-use
+","Astronomy, Biology, math, physics"
+Dual-use ,Biology
+Fringe amplification,"Astronomy, Chemistry, Geography, math, physics"
+Geopolitical Sensitive,Geography
+Hallucinations and Misconceptions,"Astronomy, Biology, Chemistry, Geography, engineering, math, physics"
+Hallucinations and Misconceptions ,Biology
+Knowledge cutoff drift,"Astronomy, Biology, Chemistry, Geography"
+Lab Safety,"Biology, Chemistry, engineering"
+Privacy leaks,"Biology, Geography"
+Regulatory blind spot,"Biology, Chemistry, engineering"
+Safety Omission,engineering
+Safety omission,"Astronomy, Geography, engineering, physics"

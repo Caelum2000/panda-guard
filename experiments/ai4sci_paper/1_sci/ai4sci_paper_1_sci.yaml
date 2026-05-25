@@ -1,0 +1,56 @@
+args:
+  log_level: "INFO"
+  max_parallel: 16
+  repeats: 1
+  visible: true
+  device: null
+  max_queries: null
+
+exp_prefix: "ai4sci_paper/1_sci"
+
+attacker:
+  external:
+    - configs/attacks/none.yaml
+  manual:
+    null
+    # - params:
+    #     attacker_cls: "TransferAttacker"
+    #     attacker_name: null
+
+defender:
+  external:
+    - configs/defenses/none.yaml
+  manual:
+    null
+    # - params:
+    #     defender_cls: "NoneDefender"
+    #     target_llm_config:
+    #       llm_type: "OpenAiLLM"
+    #       model_name: "meta-llama/Meta-Llama-3-70B-Instruct"
+    #       base_url: "http://172.18.129.80:8000/v1"
+    #     target_llm_gen_config:
+    #       max_n_tokens: 150
+    #       temperature: 1.0
+    #       logprobs: False
+    #       seed: null
+
+llm:
+  external:
+    - configs/defenses/ai4sci_llm/sci_llm/intern-s1.yaml
+    - configs/defenses/ai4sci_llm/sci_llm/intern-s1-mini.yaml
+    - configs/defenses/ai4sci_llm/sci_llm/intern-s1-pro.yaml
+    - configs/defenses/ai4sci_llm/sci_llm/s1-base-lite.yaml
+    - configs/defenses/ai4sci_llm/sci_llm/s1-base-pro.yaml
+    - configs/defenses/ai4sci_llm/sci_llm/s1-base-ultra.yaml
+  manual: null
+
+llm_gen:
+  max_n_tokens: 4096
+  temperature: 1.0
+  logprobs: False
+  seed: null
+
+judges: null
+
+input_file:
+  - "data/ai4sci_paper/20260423.csv"

@@ -1,0 +1,23 @@
+output_dir: outputs/ai4sci_paper_draw/risk_heatmap_compare
+
+inputs:
+  eval_dirs:
+    sci:
+      risk_dimension_margin: others/1_sci_eval/risk_dimension_margin.csv
+    base:
+      risk_dimension_margin: others/1_base_eval/risk_dimension_margin.csv
+
+plot:
+  dpi: 300
+  formats: ["svg"]
+  group_order: ["sci", "base"]
+  group_labels:
+    sci: "Scientific Models"
+    base: "Base Models"
+  separator_columns: 1
+  cell_width: 0.46
+  cell_height: 0.44
+  min_width: 13.5
+  max_width: 22.0
+  min_height: 5.0
+  max_height: 8.0

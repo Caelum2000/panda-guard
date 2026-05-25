@@ -1,0 +1,1 @@
+python experiments/ai4sci_paper/1_isolation/ai4sci_paper_1_isolation.py --config experiments/ai4sci_paper/1_isolation/ai4sci_paper_1_isolation.yaml

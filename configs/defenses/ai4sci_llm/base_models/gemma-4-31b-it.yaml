@@ -1,0 +1,4 @@
+llm_type: "OpenAiChatLLM"
+base_url: "https://aihubmix.com/v1"
+api_key: "sk-bQB6LJGHeT0Vgn7173500f0d43D64151A8A38b0b61023005"
+model_name: "gemma-4-31b-it"

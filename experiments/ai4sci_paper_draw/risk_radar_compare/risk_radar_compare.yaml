@@ -1,0 +1,32 @@
+output_dir: outputs/ai4sci_paper_draw/risk_radar_compare
+
+inputs:
+  eval_dirs:
+    base:
+      risk_dimension_margin: others/1_base_eval/risk_dimension_margin.csv
+    sci:
+      risk_dimension_margin: others/1_sci_eval/risk_dimension_margin.csv
+
+plot:
+  dpi: 300
+  formats: ["svg"]
+  group_order: ["base", "sci"]
+  group_labels:
+    base: "Base Models"
+    sci: "Scientific Models"
+  top_radar_models: 8
+  figure_size: 9.8
+  line_width: 2.4
+  fill_alpha: 0.08
+  radial_limit: 100
+  radial_ticks: [20, 40, 60, 80, 100]
+  font_scale: 1.55
+  title_font_size: 18
+  axis_label_font_size: 20
+  radial_tick_font_size: 10
+  legend_font_size: 11
+  legend_columns: 2
+  legend_y: -0.11
+  risk_dimension_order: "combined_mean"
+  output_no_risk_label: true
+  no_risk_label_suffix: "no_risk_label"
