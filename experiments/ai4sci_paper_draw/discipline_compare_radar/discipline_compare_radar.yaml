@@ -1,0 +1,41 @@
+output_dir: outputs/ai4sci_paper_draw/discipline_compare_radar
+
+inputs:
+  eval_dirs:
+    base:
+      subject_margin: others/1_base_eval/subject_margin.csv
+    sci:
+      subject_margin: others/1_sci_eval/subject_margin.csv
+
+plot:
+  dpi: 300
+  formats: ["svg"]
+  figure_size: 8.8
+  font_scale: 1.45
+  title: "Average ASR by Scientific Discipline"
+  title_font_size: 18
+  axis_label_font_size: 18
+  radial_tick_font_size: 11
+  legend_font_size: 15
+  legend_y: -0.08
+  line_width: 2.8
+  marker_size: 6
+  fill_alpha: 0.12
+  radial_limit: 100
+  radial_ticks: [20, 40, 60, 80, 100]
+  subject_order: "combined_mean"
+  subject_labels:
+    Astronomy: "Astronomy"
+    Biology: "Biology"
+    Chemistry: "Chemistry"
+    Geography: "Geography"
+    engineering: "Engineering"
+    math: "Mathematics"
+    physics: "Physics"
+  group_order: ["base", "sci"]
+  group_labels:
+    base: "Base Models"
+    sci: "Scientific Models"
+  group_colors:
+    base: "#2F6F9F"
+    sci: "#C7503C"
