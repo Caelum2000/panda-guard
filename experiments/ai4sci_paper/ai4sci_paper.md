@@ -15,6 +15,14 @@
 1. test isolation model (configs/defenses/ai4sci_llm/ isolation)
 2. dataset: data/ai4sci_paper/20260423.csv 
 
+
+### exp 1_2_base (waiting)
+1. almost same as 1_base, but use newly collected data (at 2026.8)
+2. add newly released llms, delete some old llms
+
+### exp 1_2_sci (waiting)
+1. test sci-llms on data of exp 1_2_base
+
 ### exp 2_base
 1. same as exp 1_base, but use template attack method
 2. use data: data/ai4sci_paper/20260423_expanded.csv
