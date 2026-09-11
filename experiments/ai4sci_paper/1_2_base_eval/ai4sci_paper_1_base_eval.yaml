@@ -1,0 +1,10 @@
+root: "outputs/ai4sci_paper/1_base_judge"
+ref: "data/ai4sci_paper/20260423.csv"
+exp_prefix: "ai4sci_paper/1_base_eval"
+
+subject_key: "Subject"
+sub_subject_key: "Sub-discipline"
+risk_dim_key: "Risk Dimension"
+
+judge_keys:
+  - "Risk_gpt-5.4-mini"

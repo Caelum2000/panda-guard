@@ -1,0 +1,21 @@
+output_dir: outputs/ai4sci_paper/1_draw
+
+inputs:
+  model_release: others/Models_Merged.csv
+  eval_dirs:
+    base:
+      subject_margin: others/1_base_eval/subject_margin.csv
+      subject_subdiscipline: others/1_base_eval/subject_subdiscipline.csv
+      risk_dimension_margin: others/1_base_eval/risk_dimension_margin.csv
+    sci:
+      subject_margin: others/1_sci_eval/subject_margin.csv
+      subject_subdiscipline: others/1_sci_eval/subject_subdiscipline.csv
+      risk_dimension_margin: others/1_sci_eval/risk_dimension_margin.csv
+
+plot:
+  dpi: 300
+  formats: ["svg"]
+  top_radar_models: 8
+  figure_width: 10
+  heatmap_cell_width: 0.42
+  heatmap_cell_height: 0.38

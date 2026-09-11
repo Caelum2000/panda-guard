@@ -1,0 +1,1 @@
+python experiments/ai4sci_paper/1_base_judge/ai4sci_paper_1_base_judge.py --config experiments/ai4sci_paper/1_base_judge/ai4sci_paper_1_base_judge.yaml
