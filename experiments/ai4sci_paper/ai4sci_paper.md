@@ -16,11 +16,11 @@
 2. dataset: data/ai4sci_paper/20260423.csv 
 
 
-### exp 1_2_base (waiting)
+### exp 1_2_base 
 1. almost same as 1_base, but use newly collected data (at 2026.8)
 2. add newly released llms, delete some old llms
 
-### exp 1_2_sci (waiting)
+### exp 1_2_sci 
 1. test sci-llms on data of exp 1_2_base
 
 ### exp 2_base

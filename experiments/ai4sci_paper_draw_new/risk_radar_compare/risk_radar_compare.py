@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import shutil
+import sys
 from pathlib import Path
 from typing import Dict, Iterable, List
 
@@ -9,6 +10,12 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from omegaconf import OmegaConf
+
+REPO_ROOT = Path(__file__).resolve().parents[3]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from data.ai4sci_paper.normalize_202608 import RISK_DIMENSION_MAPPING, normalize_dimension_series
 
 
 def apply_style(font_scale: float) -> None:
@@ -58,7 +65,11 @@ def load_risk_tables(eval_dirs: Dict[str, Dict[str, str]]) -> pd.DataFrame:
         df = pd.read_csv(paths["risk_dimension_margin"])
         df["model_group"] = group_name
         parts.append(df)
-    return pd.concat(parts, ignore_index=True)
+    table = pd.concat(parts, ignore_index=True)
+    table["Risk Dimension"] = normalize_dimension_series(
+        table["Risk Dimension"], RISK_DIMENSION_MAPPING, "Risk Dimension"
+    )
+    return table
 
 
 def pivot_asr(df: pd.DataFrame, risk_order: List[str] | None = None) -> pd.DataFrame:

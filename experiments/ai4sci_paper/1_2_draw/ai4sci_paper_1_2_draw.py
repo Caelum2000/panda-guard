@@ -2,6 +2,7 @@
 import math
 import re
 import shutil
+import sys
 from pathlib import Path
 from typing import Dict, Iterable, List
 
@@ -12,6 +13,17 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from omegaconf import OmegaConf
+
+REPO_ROOT = Path(__file__).resolve().parents[3]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from data.ai4sci_paper.normalize_202608 import (
+    DISCIPLINE_MAPPING,
+    RISK_DIMENSION_MAPPING,
+    SUBDISCIPLINE_MAPPING,
+    normalize_dimension_series,
+)
 
 
 MODEL_ALIASES = {
@@ -93,7 +105,20 @@ def load_eval_tables(eval_dirs: Dict[str, Dict[str, str]]) -> Dict[str, pd.DataF
             df["model_group"] = group_name
             df["model_key"] = df["model_name"].map(normalize_model_name)
             tables[table_name].append(df)
-    return {name: pd.concat(parts, ignore_index=True) for name, parts in tables.items()}
+    combined = {name: pd.concat(parts, ignore_index=True) for name, parts in tables.items()}
+    combined["subject_margin"]["Subject"] = normalize_dimension_series(
+        combined["subject_margin"]["Subject"], DISCIPLINE_MAPPING, "Subject"
+    )
+    combined["subject_subdiscipline"]["Subject"] = normalize_dimension_series(
+        combined["subject_subdiscipline"]["Subject"], DISCIPLINE_MAPPING, "Subject"
+    )
+    combined["subject_subdiscipline"]["Sub-discipline"] = normalize_dimension_series(
+        combined["subject_subdiscipline"]["Sub-discipline"], SUBDISCIPLINE_MAPPING, "Sub-discipline"
+    )
+    combined["risk_dimension_margin"]["Risk Dimension"] = normalize_dimension_series(
+        combined["risk_dimension_margin"]["Risk Dimension"], RISK_DIMENSION_MAPPING, "Risk Dimension"
+    )
+    return combined
 
 
 def compute_model_asr(subject_margin: pd.DataFrame) -> pd.DataFrame:

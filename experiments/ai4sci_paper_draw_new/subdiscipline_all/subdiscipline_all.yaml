@@ -32,31 +32,31 @@ plot:
     - Biology
     - Chemistry
     - Geography
-    - engineering
-    - math
-    - physics
+    - Engineering
+    - Mathematics
+    - Physics
   subject_labels:
     Astronomy: "Astronomy"
     Biology: "Biology"
     Chemistry: "Chemistry"
     Geography: "Geography"
-    engineering: "Engineering"
-    math: "Mathematics"
-    physics: "Physics"
+    Engineering: "Engineering"
+    Mathematics: "Mathematics"
+    Physics: "Physics"
   subject_prefixes:
     Astronomy: "A"
     Biology: "B"
     Chemistry: "C"
     Geography: "G"
-    engineering: "E"
-    math: "M"
-    physics: "P"
+    Engineering: "E"
+    Mathematics: "M"
+    Physics: "P"
   sort_subdisciplines: "mean_asr_desc"
   palette:
     Astronomy: "#4E79A7"
     Biology: "#59A14F"
     Chemistry: "#B07AA1"
     Geography: "#9C755F"
-    engineering: "#F28E2B"
-    math: "#76B7B2"
-    physics: "#E15759"
+    Engineering: "#F28E2B"
+    Mathematics: "#76B7B2"
+    Physics: "#E15759"

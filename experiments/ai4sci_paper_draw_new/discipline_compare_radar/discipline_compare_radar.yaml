@@ -29,9 +29,9 @@ plot:
     Biology: "Biology"
     Chemistry: "Chemistry"
     Geography: "Geography"
-    engineering: "Engineering"
-    math: "Mathematics"
-    physics: "Physics"
+    Engineering: "Engineering"
+    Mathematics: "Mathematics"
+    Physics: "Physics"
   group_order: ["base", "sci"]
   group_labels:
     base: "Base Models"

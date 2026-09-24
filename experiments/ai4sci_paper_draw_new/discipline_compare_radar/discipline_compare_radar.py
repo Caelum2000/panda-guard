@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import shutil
+import sys
 from pathlib import Path
 from typing import Dict, Iterable, List
 
@@ -9,6 +10,12 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from omegaconf import OmegaConf
+
+REPO_ROOT = Path(__file__).resolve().parents[3]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from data.ai4sci_paper.normalize_202608 import DISCIPLINE_MAPPING, normalize_dimension_series
 
 
 def apply_style(font_scale: float) -> None:
@@ -57,9 +64,10 @@ def load_subject_tables(eval_dirs: Dict[str, Dict[str, str]]) -> pd.DataFrame:
     for group_name, paths in eval_dirs.items():
         df = pd.read_csv(paths["subject_margin"])
         df["model_group"] = group_name
-        df["Subject"] = df["Subject"].astype(str)
         parts.append(df)
-    return pd.concat(parts, ignore_index=True)
+    table = pd.concat(parts, ignore_index=True)
+    table["Subject"] = normalize_dimension_series(table["Subject"], DISCIPLINE_MAPPING, "Subject")
+    return table
 
 
 def average_group_asr(df: pd.DataFrame) -> pd.DataFrame:
